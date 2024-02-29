@@ -22,11 +22,15 @@
         color: #231f20;
     }
     .button.is-primary {
-    background-color: #231f20;
+    background-color: #212121;
     border-color: transparent;
     color: #fff; 
 }
+.has-background-warning {
+    background-color: #ffcd05 !important;
+}
 </style>
+
 </head>
 <body>
     <!-- <section class="hero is-primary is-bold">
@@ -37,7 +41,7 @@
           </div>
         </div>
       </section> -->
-      <section class="hero is-success is-fullheight">
+      <section class="hero is-success is-fullheight" id="content">
         <!-- Hero head: will stick at the top -->
         <div class="hero-head">
           <header class="navbar">
@@ -133,11 +137,11 @@
         </div>
         
       </section>
-<div class="container">
+<div class="container" id="containerHA">
 <br>
 <br>
 
-    <form id = "form" class = "mx-auto my-5 shadow p-2" method = "POST">
+    <form id = "formX" action="https://script.google.com/macros/s/AKfycbxyBkY5DDd0S-axqac_pc2f2fIeRQc7NFtiPnkFl3vIMUculIZP0v520hhng8Nek4L-/exec" class = "mx-auto my-5 shadow p-2" method = "POST">
 
     <label class="label">Votre nom complet</label>
 
@@ -319,9 +323,11 @@
     </br>
         <button type="submit" class="button is-primary">ENVOYER</button>
     </form>
+    <!-- the result of the search will be rendered inside this div -->
+<div id="result"></div>
     </div>
 </div>
-</body>
+
 <footer class="footer" style="background-color:#48c78e">
     <div class="content has-text-centered primary ">
       <p>
@@ -348,23 +354,39 @@
         </div>
         <div class="column px-0">
             <figure class="image is-1by1">
-                <img src="img/man-electrical-technician-working-switchboard-with-fuses.jpg">
+                <img src="https://img.freepik.com/free-photo/man-electrical-technician-working-switchboard-with-fuses_169016-24062.jpg">
             </figure>
         </div>
         <div class="column px-0">
             <figure class="image is-1by1">
-                <img src="img/service-maintenance-worker-repairing.jpg">
+                <img src="https://img.freepik.com/free-photo/worker-repairing-water-heater_23-2149334230.jpg">
             </figure>
         </div>
     </div>
-    <div>
-        <img src="img/Logo-col.png" alt="" width="10%" style="padding: 0;">
-    </div>
+    <!-- <div>
+        <img src="img/Logo-col.png" alt="" width="10%" style="padding: 0;background-color: #ffcd05;">
+    </div> -->
     </div>
     </div>
 </footer>
-    <script>
-        const url = "https://script.google.com/macros/s/AKfycbxyBkY5DDd0S-axqac_pc2f2fIeRQc7NFtiPnkFl3vIMUculIZP0v520hhng8Nek4L-/exec" // enter your public ('access' - 'anyone') deployment URL (NOT test deployment!)
-        document.getElementById('form').action = url;
+
+</body>
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script>
+    var form = document.getElementById('formX');
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      fetch(form.action, {
+          method : "POST",
+          body: new FormData(document.getElementById("formX")),
+      }).then(
+          response => response.json()
+      ).then((html) => {
+        $("#containerHA").empty().append( '<div class="notification has-background-warning title is-1 is-spaced" style="background-color: #ffcd05">Nous vous remercions d\'avoir rempli le formulaire. L\'un de nos commerciaux prendra contact avec vous dans les plus brefs délais.</div>' );
+        // you can put any JS code here
+        //window.open('page2.html', '_blank');
+    
+      });
+    });
     </script>
 </html>
